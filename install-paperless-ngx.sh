@@ -266,7 +266,6 @@ while true; do
 	fi
 done
 
-#ask "Email" "$USERNAME@localhost"
 ask "Email" "paperless@achatz-nb.de
 EMAIL=$ask_result
 
