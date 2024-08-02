@@ -80,7 +80,7 @@ elif [ -f /etc/TZ ] && [ -f /etc/tzlist ] ; then
 	default_time_zone=$(grep -B 1 -m 1 "$TZ" /etc/tzlist | head -1 | cut -f 2 -d =)
 else
 	echo "WARN: unable to detect timezone, defaulting to Etc/UTC"
-	default_time_zone="Europe/Berlin"
+	default_time_zone="Etc/UTC"
 fi
 
 set -e
@@ -191,7 +191,6 @@ echo "  /mnt/consume"
 echo "  ./consume"
 echo ""
 
-#ask_docker_folder "Consume folder" "$TARGET_FOLDER/consume"
 ask_docker_folder "Consume folder" "/data/consume"
 CONSUME_FOLDER=$ask_result
 
@@ -266,7 +265,7 @@ while true; do
 	fi
 done
 
-ask "Email" "paperless@achatz-nb.de
+ask "Email" "$USERNAME@localhost"
 EMAIL=$ask_result
 
 echo ""
