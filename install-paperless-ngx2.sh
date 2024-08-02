@@ -218,7 +218,7 @@ if [[ "$DATABASE_BACKEND" == "postgres" || "$DATABASE_BACKEND" == "mariadb" ]] ;
 	echo "or a relative path starting with ./ here."
 	echo ""
 
-	DATABASE_FOLDER"/data/database"
+	DATABASE_FOLDER="/data/database"
 fi
 
 echo ""
