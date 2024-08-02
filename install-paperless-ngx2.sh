@@ -102,16 +102,14 @@ echo "installation will be accessible via the web, otherwise can be left blank."
 echo "Example: https://paperless.example.com"
 echo ""
 
-ask "URL" "https://paperless.fritz.box"
-URL=$ask_result
+URL="https://paperless.fritz.box"
 
 echo ""
 echo "The port on which the paperless webserver will listen for incoming"
 echo "connections."
 echo ""
 
-ask "Port" "8000"
-PORT=$ask_result
+PORT=8000
 
 echo ""
 echo "Paperless requires you to configure the current time zone correctly."
@@ -121,8 +119,7 @@ echo "Example: Europe/Berlin"
 echo "See here for a list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
 echo ""
 
-ask "Current time zone" "$default_time_zone"
-TIME_ZONE=$ask_result
+TIME_ZONE=$default_time_zone
 
 echo ""
 echo "Database backend: PostgreSQL, MariaDB, and SQLite are available. Use PostgreSQL"
@@ -130,8 +127,7 @@ echo "if unsure. If you're running on a low-power device such as Raspberry"
 echo "Pi, use SQLite to save resources."
 echo ""
 
-ask "Database backend" "postgres" "postgres sqlite mariadb"
-DATABASE_BACKEND=$ask_result
+DATABASE_BACKEND="postgres"
 
 echo ""
 echo "Paperless is able to use Apache Tika to support Office documents such as"
@@ -139,8 +135,7 @@ echo "Word, Excel, Powerpoint, and Libreoffice equivalents. This feature"
 echo "requires more resources due to the required services."
 echo ""
 
-ask "Enable Apache Tika?" "yes" "yes no"
-TIKA_ENABLED=$ask_result
+TIKA_ENABLED="yes"
 
 echo ""
 echo "Specify the default language that most of your documents are written in."
@@ -150,8 +145,7 @@ echo "Common values: eng (English) deu (German) nld (Dutch) fra (French)"
 echo "This can be a combination of multiple languages such as deu+eng"
 echo ""
 
-ask "OCR language" "deu+eng"
-OCR_LANGUAGE=$ask_result
+OCR_LANGUAGE="deu+eng"
 
 echo ""
 echo "Specify the user id and group id you wish to run paperless as."
@@ -161,11 +155,9 @@ echo "and group id of your unix user account."
 echo "If unsure, leave default."
 echo ""
 
-ask "User ID" "$(id -u)"
-USERMAP_UID=$ask_result
+USERMAP_UID="$(id -u)"
 
-ask "Group ID" "$(id -g)"
-USERMAP_GID=$ask_result
+USERMAP_GID="$(id -g)"
 
 echo ""
 echo "2. Folder configuration"
@@ -177,8 +169,7 @@ echo "You will need this folder whenever you want to start, stop, update or "
 echo "maintain your paperless instance."
 echo ""
 
-ask "Target folder" "$(pwd)/paperless-ngx"
-TARGET_FOLDER=$ask_result
+TARGET_FOLDER="$(pwd)/paperless-ngx"
 
 echo ""
 echo "The consume folder is where paperless will search for new documents."
@@ -191,8 +182,7 @@ echo "  /mnt/consume"
 echo "  ./consume"
 echo ""
 
-ask_docker_folder "Consume folder" "/data/consume"
-CONSUME_FOLDER=$ask_result
+CONSUME_FOLDER="/data/consume"
 
 echo ""
 echo "The media folder is where paperless stores your documents."
@@ -203,8 +193,7 @@ echo "CAUTION: If specified, you must specify an absolute path starting with /"
 echo "or a relative path starting with ./ here."
 echo ""
 
-ask_docker_folder "Media folder" "/data/media"
-MEDIA_FOLDER=$ask_result
+MEDIA_FOLDER="/data/media"
 
 echo ""
 echo "The data folder is where paperless stores other data, such as your"
@@ -218,8 +207,7 @@ echo "CAUTION: If specified, you must specify an absolute path starting with /"
 echo "or a relative path starting with ./ here."
 echo ""
 
-ask_docker_folder "Data folder" "/data/data"
-DATA_FOLDER=$ask_result
+DATA_FOLDER="/data/data"
 
 if [[ "$DATABASE_BACKEND" == "postgres" || "$DATABASE_BACKEND" == "mariadb" ]] ; then
 	echo ""
@@ -230,8 +218,7 @@ if [[ "$DATABASE_BACKEND" == "postgres" || "$DATABASE_BACKEND" == "mariadb" ]] ;
 	echo "or a relative path starting with ./ here."
 	echo ""
 
-	ask_docker_folder "Database folder" "/data/database"
-	DATABASE_FOLDER=$ask_result
+	DATABASE_FOLDER"/data/database"
 fi
 
 echo ""
@@ -247,7 +234,7 @@ ask "Paperless username" "$(whoami)"
 USERNAME=$ask_result
 
 while true; do
-	read -r -sp "Paperless password: " PASSWORD
+	read -r -sp "Paperless password: " "$(whoami)"
 	echo ""
 
 	if [[ -z $PASSWORD ]] ; then
@@ -255,7 +242,7 @@ while true; do
 		continue
 	fi
 
-	read -r -sp "Paperless password (again): " PASSWORD_REPEAT
+	read -r -sp "Paperless password (again): " "$(whoami)"
 	echo ""
 
 	if [[ ! "$PASSWORD" == "$PASSWORD_REPEAT" ]] ; then
@@ -265,8 +252,7 @@ while true; do
 	fi
 done
 
-ask "Email" "$USERNAME@localhost"
-EMAIL=$ask_result
+EMAIL="paperless@achatz-nb.de
 
 echo ""
 echo "Summary"
