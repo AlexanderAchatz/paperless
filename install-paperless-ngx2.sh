@@ -41,11 +41,6 @@ ask_docker_folder() {
 	done
 }
 
-if [[ $(id -u) == "0" ]] ; then
-	echo "Do not run this script as root."
-	exit 1
-fi
-
 if ! command -v wget &> /dev/null ; then
 	echo "wget executable not found. Is wget installed?"
 	exit 1
@@ -234,7 +229,7 @@ ask "Paperless username" "$(whoami)"
 USERNAME=$ask_result
 
 while true; do
-	read -r -sp "Paperless password: " "$(whoami)"
+	read -r -sp "Paperless password: " "PASSWORD"
 	echo ""
 
 	if [[ -z $PASSWORD ]] ; then
@@ -242,7 +237,7 @@ while true; do
 		continue
 	fi
 
-	read -r -sp "Paperless password (again): " "$(whoami)"
+	read -r -sp "Paperless password (again): " "PASSWORD_REPEAT"
 	echo ""
 
 	if [[ ! "$PASSWORD" == "$PASSWORD_REPEAT" ]] ; then
