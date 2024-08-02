@@ -186,7 +186,8 @@ echo "  /mnt/consume"
 echo "  ./consume"
 echo ""
 
-ask_docker_folder "Consume folder" "$TARGET_FOLDER/consume"
+#ask_docker_folder "Consume folder" "$TARGET_FOLDER/consume"
+ask_docker_folder "Consume folder" "/data/consume"
 CONSUME_FOLDER=$ask_result
 
 echo ""
@@ -260,7 +261,8 @@ while true; do
 	fi
 done
 
-ask "Email" "$USERNAME@localhost"
+#ask "Email" "$USERNAME@localhost"
+ask "Email" "paperless@achatz-nb.de
 EMAIL=$ask_result
 
 echo ""
