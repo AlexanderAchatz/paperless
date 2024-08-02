@@ -75,7 +75,7 @@ elif [ -f /etc/TZ ] && [ -f /etc/tzlist ] ; then
 	default_time_zone=$(grep -B 1 -m 1 "$TZ" /etc/tzlist | head -1 | cut -f 2 -d =)
 else
 	echo "WARN: unable to detect timezone, defaulting to Etc/UTC"
-	default_time_zone="Etc/UTC"
+	default_time_zone="Europe/Berlin"
 fi
 
 set -e
@@ -97,7 +97,7 @@ echo "installation will be accessible via the web, otherwise can be left blank."
 echo "Example: https://paperless.example.com"
 echo ""
 
-ask "URL" ""
+ask "URL" "https://paperless.fritz.box"
 URL=$ask_result
 
 echo ""
@@ -134,7 +134,7 @@ echo "Word, Excel, Powerpoint, and Libreoffice equivalents. This feature"
 echo "requires more resources due to the required services."
 echo ""
 
-ask "Enable Apache Tika?" "no" "yes no"
+ask "Enable Apache Tika?" "yes" "yes no"
 TIKA_ENABLED=$ask_result
 
 echo ""
@@ -145,7 +145,7 @@ echo "Common values: eng (English) deu (German) nld (Dutch) fra (French)"
 echo "This can be a combination of multiple languages such as deu+eng"
 echo ""
 
-ask "OCR language" "eng"
+ask "OCR language" "deu+eng"
 OCR_LANGUAGE=$ask_result
 
 echo ""
@@ -198,7 +198,7 @@ echo "CAUTION: If specified, you must specify an absolute path starting with /"
 echo "or a relative path starting with ./ here."
 echo ""
 
-ask_docker_folder "Media folder" ""
+ask_docker_folder "Media folder" "/data/media"
 MEDIA_FOLDER=$ask_result
 
 echo ""
@@ -213,7 +213,7 @@ echo "CAUTION: If specified, you must specify an absolute path starting with /"
 echo "or a relative path starting with ./ here."
 echo ""
 
-ask_docker_folder "Data folder" ""
+ask_docker_folder "Data folder" "/data/data"
 DATA_FOLDER=$ask_result
 
 if [[ "$DATABASE_BACKEND" == "postgres" || "$DATABASE_BACKEND" == "mariadb" ]] ; then
@@ -225,7 +225,7 @@ if [[ "$DATABASE_BACKEND" == "postgres" || "$DATABASE_BACKEND" == "mariadb" ]] ;
 	echo "or a relative path starting with ./ here."
 	echo ""
 
-	ask_docker_folder "Database folder" ""
+	ask_docker_folder "Database folder" "/data/database"
 	DATABASE_FOLDER=$ask_result
 fi
 
